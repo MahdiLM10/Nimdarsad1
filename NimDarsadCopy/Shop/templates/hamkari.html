@@ -1,0 +1,154 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+    <body class="d-flex flex-column h-100 bg-light">
+        <main class="flex-shrink-0">
+            <!-- Page Content-->
+            <div class="container px-5 my-5">
+                <div class="text-center mb-5">
+                    <h1 class="display-5 fw-bolder mb-0"><span class="text-gradient d-inline">نیم درصد پلی بین شما و خریدار</span></h1>
+                </div>
+                <div class="row gx-5 justify-content-center">
+                    <div class="col-lg-11 col-xl-9 col-xxl-8">
+                        <!-- Experience Section-->
+                        <section>
+                            <div class="d-flex align-items-center justify-content-between mb-4">
+                                <h2 class="text-primary fw-bolder mb-0">صنایع دستی🧺</h2>
+                                <!-- Download resume button-->
+                                <!-- Note: Set the link href target to a PDF file within your project-->
+                                <a class="btn btn-outline-warning px-4 py-3" href="{% url 'about' %}">
+                                    <div class="d-inline-block bi bi-telephone me-2"></div>
+                                    ارتباط با ما
+                                </a>
+                            </div>
+                            <!-- Experience Card 1-->
+                            <div class="card shadow border-0 rounded-4 mb-5">
+                                <div class="card-body p-5">
+                                    <div class="row align-items-center gx-5">
+                                        <div class="col text-center text-lg-start mb-4 mb-lg-0">
+                                            <div class="bg-light p-4 rounded-4">
+                                                <div class="text-primary fw-bolder mb-2">سبد دست بافت</div>
+                                                {% comment %} <div class="small fw-bolder"></div> {% endcomment %}
+                                                <img src="{% static 'assets/download.jpg' %}" alt="image"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-8"><div><b>با نیم درصد، دیگر نگران فروش محصولات و پیدا کردن خریدار نباشید. <br> محصولات خود را بدون واسطه و به راحتی بفروشید.</b></div></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Experience Card 2-->
+                            <div class="card shadow border-0 rounded-4 mb-5">
+                                <div class="card-body p-5">
+                                    <div class="row align-items-center gx-5">
+                                        <div class="col text-center text-lg-start mb-4 mb-lg-0">
+                                            <div class="bg-light p-4 rounded-4">
+                                                <div class="text-primary fw-bolder mb-2">گل سر </div>
+                                                {% comment %} <div class="small fw-bolder"></div> {% endcomment %}
+                                                <img src="{% static 'assets/download.jpg' %}" alt="image"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-8"><div><b>با نیم درصد، دیگر نگران فروش محصولات و پیدا کردن خریدار نباشید. <br> محصولات خود را بدون واسطه و به راحتی بفروشید.</b></div></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        <!-- Education Section-->
+                        <section>
+                            <h2 class="text-secondary fw-bolder mb-4">لباس 👚</h2>
+                            <!-- Education Card 1-->
+                            <div class="card shadow border-0 rounded-4 mb-5">
+                                <div class="card-body p-5">
+                                    <div class="row align-items-center gx-5">
+                                        <div class="col text-center text-lg-start mb-4 mb-lg-0">
+                                            <div class="bg-light p-4 rounded-4">
+                                                <div class="text-primary fw-bolder mb-2">لباس زنانه</div>
+                                                {% comment %} <div class="small fw-bolder"></div> {% endcomment %}
+                                                <img src="{% static 'assets/download.jpg' %}" alt="image"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-8"><div><b>با نیم درصد، دیگر نگران فروش محصولات و پیدا کردن خریدار نباشید. <br> محصولات خود را بدون واسطه و به راحتی بفروشید.</b></div></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Education Card 2-->
+                            <div class="card shadow border-0 rounded-4 mb-5">
+                                <div class="card-body p-5">
+                                    <div class="row align-items-center gx-5">
+                                        <div class="col text-center text-lg-start mb-4 mb-lg-0">
+                                            <div class="bg-light p-4 rounded-4">
+                                                <div class="text-primary fw-bolder mb-2">تیشرت دخترونه</div>
+                                                {% comment %} <div class="small fw-bolder"></div> {% endcomment %}
+                                                <img src="{% static 'assets/download.jpg' %}" alt="image"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-8"><div><b>با نیم درصد، دیگر نگران فروش محصولات و پیدا کردن خریدار نباشید. <br> محصولات خود را بدون واسطه و به راحتی بفروشید.</b></div></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        <section>
+                            <h2 class="text-secondary fw-bolder mb-4">محصولاتت سنتی🐄</h2>
+                            <!-- Education Card 1-->
+                            <div class="card shadow border-0 rounded-4 mb-5">
+                                <div class="card-body p-5">
+                                    <div class="row align-items-center gx-5">
+                                        <div class="col text-center text-lg-start mb-4 mb-lg-0">
+                                            <div class="bg-light p-4 rounded-4">
+                                                <div class="text-primary fw-bolder mb-2">ماست</div>
+                                                {% comment %} <div class="small fw-bolder"></div> {% endcomment %}
+                                                <img src="{% static 'assets/download.jpg' %}" alt="image"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-8"><div><b>با نیم درصد، دیگر نگران فروش محصولات و پیدا کردن خریدار نباشید. <br> محصولات خود را بدون واسطه و به راحتی بفروشید.</b></div></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Education Card 2-->
+                            <div class="card shadow border-0 rounded-4 mb-5">
+                                <div class="card-body p-5">
+                                    <div class="row align-items-center gx-5">
+                                        <div class="col text-center text-lg-start mb-4 mb-lg-0">
+                                            <div class="bg-light p-4 rounded-4">
+                                                <div class="text-primary fw-bolder mb-2">پنیر</div>
+                                                {% comment %} <div class="small fw-bolder"></div> {% endcomment %}
+                                                <img src="{% static 'assets/download.jpg' %}" alt="image"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-8"><div><b>با نیم درصد، دیگر نگران فروش محصولات و پیدا کردن خریدار نباشید. <br> محصولات خود را بدون واسطه و به راحتی بفروشید.</b></div></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <!-- Footer-->
+        <footer class="bg-white py-4 mt-auto">
+            <div class="container px-5">
+                <div class="row align-items-center justify-content-between flex-column flex-sm-row">
+                    <div class="col-auto"><div class="small m-0">&hearts; فروشگاه نیم ٪</div></div>
+                    <div class="col-auto">
+                        <a class="small" href="{% url 'homepage' %}">خانه</a>
+                        <span class="mx-1">&middot;</span>
+                        <a class="small" href="{% url 'ticket' %}">پشتیبانی</a>
+                        <span class="mx-1">&middot;</span>
+                        <a class="small" href="{% url 'hamkari' %}">همکاری با ما</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+        <style>
+            .text-gradient{background: -webkit-linear-gradient(315deg, #1c2fff 0%, #514848 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;}
+            .text-primary{
+                text-align: center;
+            }
+        </style>
+    </body>
+{% endblock content %}

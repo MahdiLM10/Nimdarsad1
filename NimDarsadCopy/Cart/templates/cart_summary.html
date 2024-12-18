@@ -1,0 +1,226 @@
+{% extends "base.html" %}
+{% load static %}
+{% load humanize %}
+
+
+{% block content %}
+<body class="d-flex flex-column h-100 bg-light">
+    <header class="bg-primary py-5">
+        <div class="container px-4 px-lg-5 my-5">
+          <div class="text-center text-white">
+            <h1 class="display-4 fw-bolder">فروشگاه نیم درصد &hearts;</h1>
+            <p class="lead fw-normal text-white-50 mb-0"> درباره ما </p>
+          </div>
+        </div>
+    </header>
+    <body class="d-flex flex-column">
+        <main class="flex-shrink-0">
+            <!-- Page content-->
+            <section class="py-5">
+                <div class="container px-5">
+                    <!-- Contact form-->
+                    <div class="bg-light rounded-4 py-5 px-4 px-md-5">
+                        <div class="text-center mb-5">
+                            <div class="feature bg-primary bg-gradient-primary-to-secondary text-white rounded-3 mb-3"><i class="bi-cart-fill me-1"></i></div>
+                            <h1 class="fw-bolder">فروشگاه همواره تخفیف نیم ٪</h1>
+                        </div>
+                        <div class="row gx-5 justify-content-center">
+                            <div class="col-lg-8 col-xl-6">
+                                <!-- * * * * * * * * * * * * * * *-->
+                                <!-- * * SB Forms Contact Form * *-->
+                                <!-- * * * * * * * * * * * * * * *-->
+                                <!-- This form is pre-integrated with SB Forms.-->
+                                <!-- To make this form functional, sign up at-->
+                                <!-- https://startbootstrap.com/solution/contact-forms-->
+                                <!-- to get an API token!-->
+                              {% if cart_products %}
+                              {% for product in cart_products %}
+                              <div class="container">
+                                <div class="card mb-3">
+                                    <div class="row g-0">
+                                      <div class="col-md-4">
+                                        <img src="{{ product.image.url }}" class="img-fluid rounded-start" alt="...">
+                                      </div>
+                                      <div class="col-md-8">
+                                        <div class="card-body">
+                                          <h5 class="card-title">{{product.name}}</h5>
+                                          <p class="card-text">{{product.description}}</p>
+                                          {% if product.is_sale %}
+                                          <p class="card-text"><strike>{{ product.price|intcomma }} </strike>
+                                             قیمت : {{ product.sale_price|intcomma }}</p>
+                                          {% else %}
+                                          <p class="card-text">قیمت : {{ product.price|intcomma }}</p>
+                                          {% endif %}
+                                          <br/>
+                                          {% for key, value in quantitys.items %}
+                                                {% if key == product.id|slugify %}
+                                                    <h5>تعداد سفارشات شما : {{value}}</h5>  <!-- Use value directly, as it should represent the quantity -->
+                                                {% endif %}
+                                          {% endfor %}
+                                          {% for key, value in color.items %}
+                                                {% if key == product.id|slugify %}
+                                                    <h5>رنگ انتخابی شما : {{value}}</h5>  <!-- Use value directly, as it should represent the quantity -->
+                                                {% endif %}
+                                          {% endfor %}
+                                          {% comment %} <p class="card-text"> {% endcomment %}
+                                            {% comment %} <select class="form-select" id='select{{product.id}} mySelect'/>
+                                              {% for key, value in quantitys.items %}
+                                                {% if key == product.id|slugify %}
+                                                    <option selected>{{ value }}</option>  <!-- Use value directly, as it should represent the quantity -->
+                                                {% endif %}
+                                              {% endfor %}
+                                              تعداد:
+                                              <option value="1">1</option>
+                                              <option value="2">2</option>
+                                              <option value="3">3</option>
+                                              <option value="4">4</option>
+                                            </select>
+                                            <br />
+                                            <select class="form-select" id='select{{product.id}}' />
+                                            {% for key, value in quantitys.items %}
+                                              {% if key == product.id|slugify %}
+                                                  <option selected>{{value}}</option>  <!-- Use value directly, as it should represent the quantity -->
+                                              {% else %}
+                                                  <option selected>{{value}}</option>  <!-- Optionally include other quantities -->
+                                              {% endif %}
+                                            {% endfor %}
+                                              <option value="blue">blue</option>
+                                              <option value="red">red</option>
+                                              <option value="yellow">yellow</option>
+                                              <option value="green">green</option>
+                                            </select>
+                                          </p>
+                                          <br>
+                                          <button type="button" data-index={{product.id}}
+                                          class="btn btn-primary update-cart">ویرایش</button> {% endcomment %}
+                                          <button type="button" data-index={{product.id}}
+                                          class="btn btn-danger delete-cart"><b>حذف</b></button>
+                                          <a href="{% url 'homepage' %}" class="btn btn-secondary"><b>بازگشت</b></a>
+                                        </div>  
+                                      </div>
+                                    </div>
+                                  </div>
+                              </div>
+                              <br>
+                              {% endfor %}
+                              <h3 style="text-align: center;color:orangered;" class="font-italic">مجموع کل سفارشات : {{total|intcomma}}</h3>
+                              <br />
+                              <form style="text-align: center;" action="{% url 'shopverify' %}" method="post">
+                                {% csrf_token %}
+                                <button class="btn btn-success">تایید و ادامه</button>
+                              </form>
+                              {% else %}
+                              <center><h3 class="container">سبد خرید شما خالی است &#128531;</h3></center>
+                              {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <br /><br /><br /><br /><br /><br/><br/><br/><br/><br/><br/>
+        <footer class="bg-white py-4 mt-auto">
+          <div class="container px-5">
+              <div class="row align-items-center justify-content-between flex-column flex-sm-row">
+                  <div class="col-auto"><div class="small m-0">&hearts; فروشگاه نیم ٪</div></div>
+                  <div class="col-auto">
+                      <a class="small" href="{% url 'homepage' %}">خانه</a>
+                      <span class="mx-1">&middot;</span>
+                      <a class="small" href="{% url 'ticket' %}">پشتیبانی</a>
+                      <span class="mx-1">&middot;</span>
+                      <a class="small" href="#">همکاری با ما</a>
+                  </div>
+              </div>
+          </div>
+      </footer>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="{% static 'js/scripts.js' %}"></script>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+        <!-- * *                               SB Forms JS                               * *-->
+        <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
+        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+        <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+        <script>
+          {% comment %} $(document).on('click','.update-cart',function(e){
+            e.preventDefault();
+    
+            var productid = $(this).data('index')
+            $.ajax({
+              type:'POST',
+              url:'{% url "cart_update" %}',
+              data:{
+                product_id: $(this).data('index'),
+                product_qty: $("#select"+productid+' option:selected').text(),
+                csrfmiddlewaretoken:'{{ csrf_token }}',
+                action : 'post'
+              },
+        
+              success : function(json){
+                //console.log(json)
+                location.reload();
+              },
+        
+              error : function(xhr, errmsg ,err){
+        
+              }
+            })
+          }) {% endcomment %}
+          {% comment %} $(document).ready(function() {
+            $('.update-cart').click(function() {
+                var productid = $(this).data('index');
+                var product_qty = $("#select"+productid+' option:selected').text();
+                var color = $('#color').val();
+                
+                $.ajax({
+                    type: 'POST',
+                    url: '{% url "cart_update" %}',  // Replace with your Django URL for updating the cart
+                    data: {
+                        'product_id': productid,
+                        'quantity': product_qty,
+                        'color': color,
+                        'csrfmiddlewaretoken': '{{ csrf_token }}'  // Make sure to include CSRF token
+                    },
+                    success: function(response) {
+                        //alert('Cart updated successfully!');
+                        location.reload()
+                        console.log(response); // Log the response for debugging
+                    },
+                    error: function(xhr, status, error) {
+                        //alert('Error updating cart: ' + error);
+                    }
+                });
+            });
+          }); {% endcomment %}
+    
+    
+          $(document).on('click','.delete-cart',function(e){
+            e.preventDefault();
+    
+            $.ajax({
+              type:'POST',
+              url:'{% url "cart_delete" %}',
+              data:{
+                product_id: $(this).data('index'),
+                csrfmiddlewaretoken:'{{ csrf_token }}',
+                action : 'post'
+              },
+        
+              success : function(json){
+                location.reload();
+              },
+        
+              error : function(xhr, errmsg ,err){
+        
+              }
+            })
+          })
+        </script>
+    </body>
+</body>
+{% endblock content %}

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fill Form</title>
+</head>
+<body>
+    <h2>Fill Profile Form</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}  <!-- فرم را به صورت پاراگراف نمایش می‌دهد -->
+        <button type="submit">Submit</button>
+    </form>
+    <form method="post" action="{% url 'fillform' %}">
+        {% csrf_token %}
+        <button type="submit">Fetch Data</button>
+    </form>
+</body>
+</html>

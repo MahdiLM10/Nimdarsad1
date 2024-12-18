@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block content %}
+<body class="d-flex flex-column h-100 bg-light">
+    <main class="flex-shrink-0">
+        <section class="py-5">
+            <div class="container px-5 mb-5">
+                <div class="text-center mb-5">
+                    <h3><span class="d-inline" style="text-align: center; font-size: large;">🤩الان خرید کن و هزینه را زمانی که محصول را دریافت کردی پرداخت کن</span></h3>
+                    <h1 class="display-5 fw-bolder mb-0"><span class="text-gradient d-inline">{{product.name}}</span></h1>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <!-- Project Card 1-->
+                    <div class="card overflow-hidden shadow rounded-4 border-0 me-3">
+                        <div class="card-body p-0">
+                            <div class="d-flex align-items-center">
+                                <div class="p-5">
+                                    <h2 class="fw-bolder">{{product.name}}</h2>
+                                    <p>{{product.description}}</p>
+                                    {% if product.is_sale %}
+                                        {{product.sale_price|intcomma}}
+                                    <br />
+                                    {% else %}
+                                        {{product.price|intcomma}}
+                                        <br/>
+                                        قیمت عمده محصول:
+                                        <br/>
+                                        {{product.omdeh|intcomma}}
+                                    <br />
+                                    {% endif %}
+                                    تعداد:
+                                    <select class="form-select" id='cart-qty'>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                    </select>
+                                    <br />
+                                    {% if product.color == 'سبد' %}
+                                        <select class="form-select" id='cart-color'>
+                                            <option value="مشکی">مشکی</option>
+                                            <option value="طوسی">طوسی</option>
+                                            <option value="نسکافه ای">نسکافه ای</option>
+                                        </select>
+                                        <br />
+                                    {% else %}
+                                        <select class="form-select" id='cart-color'>
+                                            <option value="آبی">آبی</option>
+                                            <option value="قرمز">قرمز</option>
+                                            <option value="بنفش">بنفش</option>
+                                        </select>
+                                        <br />
+                                    {% endif %}
+                                    {% if  user.is_authenticated %}
+                                    <button class="btn btn-primary" value="{{product.id}}" id="add-cart" >اضافه کردن به سبد خرید</button>
+                                    <br/><br/>
+                                    <a class="btn btn-success" href="{% url 'all_in_one' %}">خرید عمده</a>
+                                    {% else %}
+                                    <a class="btn btn-outline-primary" href="{% url 'login' %}">لطفا ابتدا وارد شوید</a>
+                                    {% endif %}
+                                    <br/><br/>
+                                    <a class="btn btn-outline-dark" href="{% url 'shoppage' %}">بازگشت</a>
+                                </div>
+                                <img class="img-fluid" src="{{ product.image.url }}" alt="..." />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <!-- Footer-->
+    <footer class="bg-white py-4 mt-auto">
+        <div class="container px-5">
+            <div class="row align-items-center justify-content-between flex-column flex-sm-row">
+                <div class="col-auto"><div class="small m-0">&hearts; فروشگاه نیم ٪</div></div>
+                <div class="col-auto">
+                    <a class="small" href="{% url 'homepage' %}">خانه</a>
+                    <span class="mx-1">&middot;</span>
+                    <a class="small" href="{% url 'ticket' %}">پشتیبانی</a>
+                    <span class="mx-1">&middot;</span>
+                    <a class="small" href="{% url 'hamkari' %}">همکاری با ما</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="{% static 'js/scripts.js' %}"></script>
+</body>
+<script>
+    $(document).on('click', '#add-cart', function(e) {
+        e.preventDefault();
+
+        // Gather the data to send
+        const productData = {
+            product_id: $('#add-cart').val(),
+            product_qty: $("#cart-qty option:selected").val(),
+            color_name: $("#cart-color option:selected").val(),
+            csrfmiddlewaretoken: '{{ csrf_token }}',
+            action: 'post'
+        };
+
+        // Send the data to the backend
+        $.ajax({
+            type: 'POST',
+            url: '{% url "cart_add" %}',  // URL for adding to cart
+            data: productData,
+            success: function(response) {
+                location.reload()
+                $('#response').html('Success: ' + response.message);
+            },
+            error: function(xhr, status, error) {
+                $('#response').html('Error: ' + error);
+            }
+        });
+    });
+</script>
+{% endblock content %}
